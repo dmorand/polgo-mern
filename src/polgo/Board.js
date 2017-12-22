@@ -1,12 +1,24 @@
+import _ from 'lodash'
 import React from 'react';
 import Square from './Square.js'
 
+const BOARD_SIZE = 8;
+
 export default class Board extends React.Component {
-  renderSquare(i) {
+  renderRow(row) {
+    return (
+      <div className="board-row" key={row}>
+        {_.range(BOARD_SIZE).map(column => this.renderSquare(row*BOARD_SIZE + column))}
+      </div>
+    )
+  }
+
+  renderSquare(index) {
     return (
       <Square
-        value={this.props.squares[i]}
-        onClick={() => this.props.onClick(i)}
+        key={index}
+        value={this.props.squares[index]}
+        onClick={() => this.props.onClick(index)}
       />
     );
   }
@@ -14,21 +26,7 @@ export default class Board extends React.Component {
   render() {
     return (
       <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
+        {_.range(BOARD_SIZE).map(row => this.renderRow(row))}
       </div>
     );
   }
