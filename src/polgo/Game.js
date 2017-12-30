@@ -4,24 +4,25 @@ import Board from './Board.js'
 export default class Game extends React.Component {
   constructor(props) {
     super(props);
+    const game = props.game;
     this.state = {
       squares: Array(64).fill(null),
-      xIsNext: true,
+      next: game.next,
+      scores: game.scores,
     };
   }
 
   handleClick(i) {
     const squares = this.state.squares.slice();
 
-    squares[i] = this.state.xIsNext ? 'X' : 'O';
     this.setState({
       squares: squares,
-      xIsNext: !this.state.xIsNext,
     });
   }
 
   render() {
-    const status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+    const status = `Next player: ${this.state.next}`;
+    const scores = `Scores: White(${this.state.scores['W']}) Black(${this.state.scores['B']})`;
 
     return (
       <div className="game">
@@ -34,7 +35,7 @@ export default class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <ol>{/* TODO */}</ol>
+          <div>{scores}</div>
         </div>
       </div>
     );

@@ -7,13 +7,13 @@ const POST = {
   method: 'POST'
 };
 
-fetch("./game/create", POST)
+fetch("./games", POST)
 .then(response => response.json())
 .then(renderGame)
 
 function renderGame(game) {
   ReactDOM.render(
-    <Game gameId={game.uuid} board={game.board} />,
+    <Game game={game} />,
     document.getElementById('root')
   );
 }
