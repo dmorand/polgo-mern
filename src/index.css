@@ -1,5 +1,4 @@
 body {
-  font: 14px "Century Gothic", Futura, sans-serif;
   margin: 20px;
 }
 
@@ -20,25 +19,36 @@ ul {
 
 .square {
   background: #fff;
-  border: 1px solid #999;
+  border: 1px solid #000;
   float: left;
-  font-size: 24px;
-  font-weight: bold;
   line-height: 34px;
   height: 34px;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
-  text-align: center;
   width: 34px;
 }
 
-.square:focus {
-  outline: none;
+.circle {
+  border-radius: 50%;
+  border: 1px solid #000;
+  float: left;
+  line-height: 30px;
+  height: 30px;
+  padding: 0;
+  width: 30px;
 }
 
-.kbd-navigation .square:focus {
-  background: #ddd;
+.illegal {
+  background: #ccc;
+}
+
+.black {
+  background: #000;
+}
+
+.white {
+  background: #fff;
 }
 
 .game {
