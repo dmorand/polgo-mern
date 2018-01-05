@@ -2,32 +2,32 @@ import _ from 'lodash'
 import React from 'react';
 import Square from './Square.js'
 
-const BOARD_SIZE = 8;
-
 export default class Board extends React.Component {
-  renderRow(row) {
+  render() {
+    var rowIndex = 0;
     return (
-      <div className="board-row" key={row}>
-        {_.range(BOARD_SIZE).map(column => this.renderSquare(row*BOARD_SIZE + column))}
+      <div>
+        {_.map(this.props.board, row => this.renderRow(row, rowIndex++))}
+      </div>
+    );
+  }
+
+  renderRow(row, rowIndex) {
+    var columnIndex = 0;
+    return (
+      <div className="board-row" key={rowIndex}>
+        {_.map(row, square => this.renderSquare(row[columnIndex], rowIndex, columnIndex++))}
       </div>
     )
   }
 
-  renderSquare(index) {
+  renderSquare(value, row, column) {
     return (
       <Square
-        key={index}
-        value={this.props.squares[index]}
-        onClick={() => this.props.onClick(index)}
+        key={`${row},${column}`}
+        value={value}
+        onClick={() => this.props.onClick(row, column)}
       />
-    );
-  }
-
-  render() {
-    return (
-      <div>
-        {_.range(BOARD_SIZE).map(row => this.renderRow(row))}
-      </div>
     );
   }
 }

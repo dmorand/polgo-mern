@@ -6,18 +6,29 @@ export default class Game extends React.Component {
     super(props);
     const game = props.game;
     this.state = {
-      squares: Array(64).fill(null),
       next: game.next,
       scores: game.scores,
+      board: game.board,
     };
   }
 
-  handleClick(i) {
-    const squares = this.state.squares.slice();
+  handleClick(row, column) {
+    const gameId = this.props.game.id;
 
-    this.setState({
-      squares: squares,
-    });
+    fetch(`./games/${gameId}`, {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({row, column}),
+    })
+    .then(response => response.json())
+    .then(game => this.setState({
+      next: game.next,
+      scores: game.scores,
+      board: game.board,
+    }));
   }
 
   render() {
@@ -28,9 +39,8 @@ export default class Game extends React.Component {
       <div className="game">
         <div className="game-board">
           <Board
-            onClick={(i) => this.handleClick(i)}
-            squares={this.state.squares}
-            board={this.props.board}
+            onClick={(row, column) => this.handleClick(row, column)}
+            board={this.state.board}
           />
         </div>
         <div className="game-info">
